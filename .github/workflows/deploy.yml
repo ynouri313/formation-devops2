@@ -37,7 +37,7 @@ jobs:
       - name: Run tests inside Docker container
         run: |
           docker run --rm ${{ secrets.DOCKER_USERNAME }}/formation-devops2-nodeapp:latest npm test  || true  
-          #The || true ensures that even if no tests exist, the pipeline does not fail.
+          #The "||"" true ensures that even if no tests exist, the pipeline does not fail.
 
   deploy:
     runs-on: ubuntu-latest
