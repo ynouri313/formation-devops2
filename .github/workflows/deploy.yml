@@ -1,0 +1,32 @@
+name: Deploy Node.js App to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Copy files to EC2 instance
+        run: |
+          scp -o StrictHostKeyChecking=no -r . ubuntu@${{ secrets.EC2_HOST }}:/opt/myapp
+
+      - name: Deploy app using Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+          cd /opt/myapp
+          docker-compose down
+          docker-compose up -d
+          EOF
