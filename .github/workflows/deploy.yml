@@ -41,7 +41,7 @@ jobs:
       - name: Tag Docker images
         run: |
           # Tag nodeapp image
-          docker tag formationdevops-nodeapp:latest ${{ secrets.DOCKER_USERNAME }}/formationdevops-nodeapp:latest
+          docker tag formation-devops2-nodeapp:latest ${{ secrets.DOCKER_USERNAME }}/formation-devops2-nodeapp:latest
           # Tag mysql image
           docker tag mysql:5.7 ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
           # Tag mongodb image
@@ -50,7 +50,7 @@ jobs:
       - name: Push Docker images to Docker Hub
         run: |
           # Push nodeapp image
-          docker push ${{ secrets.DOCKER_USERNAME }}/formationdevops-nodeapp:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/formation-devops2-nodeapp:latest
           # Push mysql image
           docker push ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
           # Push mongodb image
