@@ -21,7 +21,7 @@ jobs:
       
       - name: Create deployment directory on EC2
         run: |
-              ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo mkdir -p /opt/myapp"
+              ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "sudo mkdir -p /opt/myapp && sudo chown ubuntu:ubuntu /opt/myapp"
   
           
       - name: Copy files to EC2 instance
