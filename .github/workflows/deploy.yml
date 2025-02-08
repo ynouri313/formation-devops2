@@ -18,7 +18,12 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
-
+      
+      - name: Create deployment directory on EC2
+        run: |
+              ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "mkdir -p /opt/myapp"
+  
+          
       - name: Copy files to EC2 instance
         run: |
           scp -o StrictHostKeyChecking=no -r . ubuntu@${{ secrets.EC2_HOST }}:/opt/myapp
